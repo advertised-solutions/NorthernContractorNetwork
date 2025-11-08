@@ -79,6 +79,14 @@ export interface Listing {
   createdAt: Date;
   updatedAt: Date;
   expiresAt?: Date;
+  
+  // Phase 3-4 enhancements
+  featuredUntil?: Date;
+  serviceAreas?: ServiceArea[];
+  portfolio?: PortfolioItem[];
+  badges?: BadgeType[];
+  verifiedPro?: boolean;
+  responseTimeMinutes?: number;
 }
 
 // Review Types
@@ -94,6 +102,16 @@ export interface Review {
   createdAt: Date;
   updatedAt: Date;
   helpful?: number;
+  // Phase 2 enhancements
+  verified: boolean; // Tied to completed booking/job
+  jobId?: string;
+  bookingId?: string;
+  response?: {
+    text: string;
+    createdAt: Date;
+  }; // Contractor response
+  helpfulCount: number;
+  photos?: string[];
 }
 
 // Booking Types
@@ -221,5 +239,170 @@ export interface SearchFilters {
   latitude?: number;
   longitude?: number;
   radius?: number; // in miles
+}
+
+// Job Types (Phase 1)
+export type JobStatus = 'open' | 'reviewing_quotes' | 'hired' | 'completed' | 'cancelled';
+
+export interface Job {
+  id: string;
+  userId: string; // homeowner
+  title: string;
+  description: string;
+  categoryId: string;
+  categoryName?: string;
+  location: {
+    city: string;
+    state: string;
+    zipCode: string;
+    latitude?: number;
+    longitude?: number;
+  };
+  budget?: {
+    min: number;
+    max: number;
+  };
+  timeline: string; // e.g., "ASAP", "1-2 weeks", "1-3 months"
+  status: JobStatus;
+  quoteCount: number;
+  images?: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  expiresAt: Date;
+}
+
+// Quote Types (Phase 1)
+export type QuoteStatus = 'pending' | 'accepted' | 'rejected' | 'withdrawn';
+
+export interface Quote {
+  id: string;
+  jobId: string;
+  contractorId: string;
+  contractorName?: string;
+  contractorPhoto?: string;
+  contractorRating?: number;
+  amount: number;
+  description: string;
+  timeline: string;
+  status: QuoteStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Badge Types (Phase 2)
+export type BadgeType = 
+  | 'top_rated' 
+  | 'best_of_year' 
+  | 'quick_responder' 
+  | 'verified_pro' 
+  | 'elite_member'
+  | 'pro_member';
+
+export interface Badge {
+  id: string;
+  contractorId: string;
+  badgeType: BadgeType;
+  displayName: string;
+  description: string;
+  awardedAt: Date;
+  expiresAt?: Date;
+}
+
+// Contractor Profile Types (Phase 2-4)
+export interface ContractorProfile {
+  userId: string;
+  badges: BadgeType[];
+  verifiedInsurance: boolean;
+  verifiedLicense: boolean;
+  insuranceDocument?: string;
+  licenseDocument?: string;
+  licenseNumber?: string;
+  insuranceExpiry?: Date;
+  serviceAreas: ServiceArea[];
+  portfolio: PortfolioItem[];
+  responseTime: {
+    averageMinutes: number;
+    responseCount: number;
+  };
+  subscriptionTier: SubscriptionTier;
+  subscriptionExpiresAt?: Date;
+  featuredUntil?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+// Service Area Types (Phase 4)
+export interface ServiceArea {
+  id: string;
+  city?: string;
+  state: string;
+  zipCodes?: string[];
+  radius?: number; // miles from main location
+}
+
+// Portfolio Types (Phase 4)
+export interface PortfolioItem {
+  id: string;
+  title: string;
+  description: string;
+  categoryId: string;
+  beforeImages: string[];
+  afterImages: string[];
+  costRange?: {
+    min: number;
+    max: number;
+  };
+  duration?: string; // e.g., "2 weeks"
+  completedAt: Date;
+  tags?: string[];
+  createdAt: Date;
+}
+
+// Subscription Types (Phase 3)
+export type SubscriptionTier = 'free' | 'pro' | 'elite';
+
+export interface SubscriptionPlan {
+  tier: SubscriptionTier;
+  name: string;
+  price: number; // monthly price in cents
+  features: string[];
+  jobResponseLimit?: number; // undefined = unlimited
+  featuredListing: boolean;
+  prioritySearch: boolean;
+  analytics: 'basic' | 'advanced' | 'none';
+  smsNotifications: boolean;
+}
+
+export interface Subscription {
+  id: string;
+  userId: string;
+  tier: SubscriptionTier;
+  status: 'active' | 'cancelled' | 'past_due' | 'inactive';
+  stripeSubscriptionId?: string;
+  stripeCustomerId?: string;
+  currentPeriodStart: Date;
+  currentPeriodEnd: Date;
+  cancelAtPeriodEnd: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+
+// Analytics Types (Phase 4)
+export interface ContractorAnalytics {
+  contractorId: string;
+  period: {
+    start: Date;
+    end: Date;
+  };
+  profileViews: number;
+  quoteRequests: number;
+  quotesSubmitted: number;
+  quotesAccepted: number;
+  acceptanceRate: number;
+  averageQuoteAmount: number;
+  reviewsReceived: number;
+  averageRating: number;
+  revenue: number;
 }
 

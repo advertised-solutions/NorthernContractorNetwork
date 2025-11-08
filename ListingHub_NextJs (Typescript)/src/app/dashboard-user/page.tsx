@@ -1,7 +1,10 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/hooks/useAuth'
+import { useContractorCheck } from '@/hooks/useContractorCheck'
 
 import AdminNavbar from '../components/navbar/admin-navbar'
 import AdminSidebar from '../components/admin/admin-sidebar'
@@ -39,9 +42,65 @@ interface InvoiceData{
 }
 
 export default function Dashboarduser() {
+  const { user } = useAuth();
+  const router = useRouter();
+  const { hasListing, loading } = useContractorCheck();
+  const [showWelcome, setShowWelcome] = React.useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      router.push('/login?redirect=/dashboard-user');
+      return;
+    }
+
+    // Homeowners should use their own dashboard
+    if (user.userType === 'customer') {
+      router.push('/dashboard-homeowner');
+      return;
+    }
+
+    // Contractors without listings need to complete onboarding
+    if (user.userType === 'contractor' && !loading && !hasListing) {
+      router.push('/onboarding-contractor');
+      return;
+    }
+
+    // Check for welcome parameter (first time after onboarding)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('welcome') === 'true') {
+      setShowWelcome(true);
+      // Remove welcome param from URL
+      window.history.replaceState({}, '', '/dashboard-user');
+    }
+  }, [user, hasListing, loading, router]);
+
+  if (!user || loading) {
+    return (
+      <div className="container py-5 text-center">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
         <AdminNavbar/>
+
+        {/* Welcome Banner */}
+        {showWelcome && (
+          <div className="container mt-4">
+            <div className="alert alert-success alert-dismissible fade show" role="alert">
+              <h4 className="alert-heading">🎉 Welcome to Northern Contractor Directory!</h4>
+              <p className="mb-0">
+                Your business listing has been created successfully! You now have access to the contractor dashboard.
+                Start by exploring jobs, managing your profile, or upgrading to Pro/Elite for more visibility.
+              </p>
+              <button type="button" className="btn-close" onClick={() => setShowWelcome(false)}></button>
+            </div>
+          </div>
+        )}
 
         <section className="p-0">
             <div className="container-fluid p-0">

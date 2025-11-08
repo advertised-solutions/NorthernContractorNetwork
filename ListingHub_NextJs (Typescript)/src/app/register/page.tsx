@@ -44,10 +44,15 @@ export default function Register() {
     setIsSubmitting(true);
     try {
       await signUp(email, password, displayName, userType);
-      // Sign out the user after signup so they can log in with their new account
-      await signOut();
-      // Redirect to login page with success message
-      router.push('/login?registered=true');
+      
+      // Redirect based on user type
+      if (userType === 'contractor') {
+        // Contractors go to onboarding to create their business listing
+        router.push('/onboarding-contractor');
+      } else {
+        // Homeowners/customers go to their dashboard
+        router.push('/dashboard-homeowner');
+      }
       // Note: Don't reset isSubmitting here - let the redirect handle it
     } catch (err: any) {
       setError(err.message || 'Failed to create account. Please try again.');
@@ -59,6 +64,7 @@ export default function Register() {
     setError('');
     try {
       await signInWithGoogle();
+      // Social sign-in defaults to customer type, redirect to dashboard router
       router.push('/dashboard-user');
     } catch (err: any) {
       setError(err.message || 'Failed to sign up with Google. Please try again.');
@@ -69,6 +75,7 @@ export default function Register() {
     setError('');
     try {
       await signInWithFacebook();
+      // Social sign-in defaults to customer type, redirect to dashboard router
       router.push('/dashboard-user');
     } catch (err: any) {
       setError(err.message || 'Failed to sign up with Facebook. Please try again.');

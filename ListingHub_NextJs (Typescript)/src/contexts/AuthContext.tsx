@@ -176,14 +176,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      setLoading(false); // Set loading false immediately for faster UI
+      
       if (user) {
-        await fetchUserData(user);
+        // Fetch user data in background (non-blocking)
+        fetchUserData(user).catch(console.error);
       } else {
         setUserData(null);
       }
-      setLoading(false);
     });
 
     return unsubscribe;
@@ -268,24 +270,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const provider = new GoogleAuthProvider();
     const userCredential = await signInWithPopup(auth, provider);
     
-    // Create or update user document
+    // Create or update user document (non-blocking)
     const userDocRef = doc(db, 'users', userCredential.user.uid);
-    const userDoc = await getDoc(userDocRef);
+    getDoc(userDocRef).then((userDoc) => {
+      if (!userDoc.exists()) {
+        setDoc(userDocRef, {
+          email: userCredential.user.email,
+          displayName: userCredential.user.displayName,
+          photoURL: userCredential.user.photoURL,
+          userType: 'customer',
+          emailVerified: userCredential.user.emailVerified,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+          walletBalance: 0,
+        }).catch(console.error);
+      }
+    }).catch(console.error);
     
-    if (!userDoc.exists()) {
-      await setDoc(userDocRef, {
-        email: userCredential.user.email,
-        displayName: userCredential.user.displayName,
-        photoURL: userCredential.user.photoURL,
-        userType: 'customer',
-        emailVerified: userCredential.user.emailVerified,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-        walletBalance: 0,
-      });
-    }
-    
-    await fetchUserData(userCredential.user);
+    // Fetch user data in background (non-blocking)
+    fetchUserData(userCredential.user).catch(console.error);
   };
 
   const signInWithFacebook = async () => {
@@ -294,24 +297,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const provider = new FacebookAuthProvider();
     const userCredential = await signInWithPopup(auth, provider);
     
-    // Create or update user document
+    // Create or update user document (non-blocking)
     const userDocRef = doc(db, 'users', userCredential.user.uid);
-    const userDoc = await getDoc(userDocRef);
+    getDoc(userDocRef).then((userDoc) => {
+      if (!userDoc.exists()) {
+        setDoc(userDocRef, {
+          email: userCredential.user.email,
+          displayName: userCredential.user.displayName,
+          photoURL: userCredential.user.photoURL,
+          userType: 'customer',
+          emailVerified: userCredential.user.emailVerified,
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+          walletBalance: 0,
+        }).catch(console.error);
+      }
+    }).catch(console.error);
     
-    if (!userDoc.exists()) {
-      await setDoc(userDocRef, {
-        email: userCredential.user.email,
-        displayName: userCredential.user.displayName,
-        photoURL: userCredential.user.photoURL,
-        userType: 'customer',
-        emailVerified: userCredential.user.emailVerified,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-        walletBalance: 0,
-      });
-    }
-    
-    await fetchUserData(userCredential.user);
+    // Fetch user data in background (non-blocking)
+    fetchUserData(userCredential.user).catch(console.error);
   };
 
   const reauthenticate = async (password: string) => {

@@ -3,7 +3,7 @@ import { adminDb } from '@/lib/firebase-admin';
 import { successResponse, errorResponse } from '@/lib/api-helpers';
 import { Review, PaginatedResponse } from '@/types';
 
-// GET /api/reviews/[listingId] - Get reviews for a listing
+// GET /api/reviews/listing/[listingId] - Get reviews for a listing
 export async function GET(
   request: NextRequest,
   { params }: { params: { listingId: string } }
