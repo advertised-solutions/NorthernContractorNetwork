@@ -16,7 +16,7 @@ export default function AboutOne() {
                 <div className="col-xl-5 col-lg-6 col-md-6">
                     <div className="featuresCaption">
                         <div className="fstsTitle mb-4">
-                            <h3 className="fw-medium lh-base">Why People Love & Select ListingHub Platform?</h3>
+                            <h3 className="fw-medium lh-base">Why People Love & Select Our Contractor Platform?</h3>
                         </div>
                         <div className="fstsFeatures mb-4">
                             <div className="d-flex flex-column gap-4">
@@ -24,22 +24,22 @@ export default function AboutOne() {
                                 <div className="d-flex align-items-start justify-content-start gap-3">
                                     <div className="fstlsIcons"><BsPiggyBank className="text-primary fs-1"/></div>
                                     <div className="fstlsPara">
-                                        <h5 className="fw-medium">Save your budget</h5>
-                                        <p className="lead m-0">Think of a news blog that's filled with content hourly on the day of going live.</p>
+                                        <h5 className="fw-medium">Compare Prices & Save</h5>
+                                        <p className="lead m-0">Get multiple quotes from verified contractors and compare prices to find the best value for your project. Our platform helps you make informed decisions.</p>
                                     </div>
                                 </div>
                                 <div className="d-flex align-items-start justify-content-start gap-3">
                                     <div className="fstlsIcons"><BsShieldCheck className="text-primary fs-1"/></div>
                                     <div className="fstlsPara">
-                                        <h5 className="fw-medium">Safe &amp; pure secure</h5>
-                                        <p className="lead m-0">Think of a news blog that's filled with content hourly on the day of going live.</p>
+                                        <h5 className="fw-medium">Safe &amp; Secure</h5>
+                                        <p className="lead m-0">All contractors are verified for licensing and insurance. Our secure payment system protects your transactions and ensures quality workmanship.</p>
                                     </div>
                                 </div>
                                 
                             </div>
                         </div>
                         <div className="fstsButton">
-                            <button className="btn btn-light-primary rounded-pill fw-medium" type="button">Submit Your Listing</button>
+                            <button className="btn btn-light-primary rounded-pill fw-medium" type="button">List Your Contractor Business</button>
                         </div>
                     </div>
                 </div>

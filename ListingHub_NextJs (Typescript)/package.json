@@ -7,12 +7,16 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.6",
+    "@stripe/stripe-js": "^8.3.0",
     "animate.css": "^4.1.1",
     "bootstrap": "^5.3.5",
+    "firebase": "^12.5.0",
+    "firebase-admin": "^13.5.0",
     "next": "15.3.1",
     "rc-slider": "^11.1.8",
     "react": "^19.0.0",
@@ -24,6 +28,7 @@
     "react-scroll": "^1.9.3",
     "react-select": "^5.10.1",
     "sass": "^1.87.0",
+    "stripe": "^19.2.0",
     "swiper": "^11.2.6",
     "yet-another-react-lightbox": "^3.23.0"
   },

@@ -15,14 +15,16 @@ import BackToTop from '../components/back-to-top'
 
 export default function AddListing() {
     const options = [
-        { value: '1', label: 'Eat & Drinking' },
-        { value: '2', label: 'Rental Property' },
-        { value: '3', label: 'Classifieds' },
-        { value: '4', label: 'Bank Services' },
-        { value: '5', label: 'Shopping' },
-        { value: '6', label: 'Fintess & Gym' },
-        { value: '7', label: 'Coaching' },
-        { value: '8', label: 'Other Services' },
+        { value: '1', label: 'Plumbing' },
+        { value: '2', label: 'Electrical' },
+        { value: '3', label: 'HVAC' },
+        { value: '4', label: 'Roofing' },
+        { value: '5', label: 'Painting' },
+        { value: '6', label: 'Flooring' },
+        { value: '7', label: 'Landscaping' },
+        { value: '8', label: 'Carpentry' },
+        { value: '9', label: 'Concrete & Masonry' },
+        { value: '10', label: 'Other Contractor Services' },
       ];
       const city = [
         { value: '1', label: 'Philadelphia' },

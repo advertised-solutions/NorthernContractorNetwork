@@ -4,7 +4,7 @@ import Link from 'next/link'
 import FooterTop from '../components/footer-top'
 import Footer from '../components/footer/footer'
 import BackToTop from '../components/back-to-top'
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 
 import { MdArrowForwardIos } from 'react-icons/md'
 import { BsPatchCheckFill, BsStarFill, BsStarHalf } from 'react-icons/bs'
@@ -13,7 +13,7 @@ import Image from 'next/image'
 export default function BookingPage() {
   return (
     <>
-        <NavbarDark/>
+        <NavbarSimple/>
 
         <section className="bg-light">
             <div className="container">

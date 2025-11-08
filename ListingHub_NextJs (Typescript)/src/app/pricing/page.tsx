@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import PricingOne from '../components/pricing-one'
 import FooterTop from '../components/footer-top'
 import Footer from '../components/footer/footer'
@@ -12,7 +12,7 @@ import { MdArrowForwardIos } from 'react-icons/md'
 export default function Pricing() {
   return (
     <>
-        <NavbarDark/>
+        <NavbarSimple/>
 
         <section className="bg-light">
             <div className="container">

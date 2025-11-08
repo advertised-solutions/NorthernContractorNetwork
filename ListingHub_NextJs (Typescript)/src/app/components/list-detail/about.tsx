@@ -3,10 +3,10 @@ import { FaBath, FaBed, FaBuilding, FaVectorSquare } from 'react-icons/fa6'
 
 export default function About() {
     const data = [
-        { icon:FaBuilding, title:'Apartment'},
-        { icon:FaBed, title:'3 Beds'},
-        { icon:FaBath, title:'2 Baths'},
-        { icon:FaVectorSquare, title:'2500 sqft'},
+        { icon:FaBuilding, title:'Licensed & Insured'},
+        { icon:FaBed, title:'15+ Years Experience'},
+        { icon:FaBath, title:'Emergency Service'},
+        { icon:FaVectorSquare, title:'Free Estimates'},
     ]
   return (
         <div className="listingSingleblock mb-4">

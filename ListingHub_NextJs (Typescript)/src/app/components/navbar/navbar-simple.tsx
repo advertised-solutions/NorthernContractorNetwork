@@ -1,24 +1,28 @@
 'use client'
 import React, { useState,useEffect } from 'react'
-import { usePathname } from 'next/navigation'
-import { BsPersonCircle,BsSearch, BsGeoAlt, BsSpeedometer, BsPersonLinesFill, BsJournalCheck, BsUiRadiosGrid, BsBookmarkStar, BsChatDots, BsYelp, BsPatchPlus, BsBoxArrowInRight, BsPersonPlus, BsEnvelopeCheck, BsInfoCircle, BsX, } from "react-icons/bs";
+import { usePathname, useRouter } from 'next/navigation'
+import { BsPersonCircle,BsSearch, BsGeoAlt, BsSpeedometer, BsPersonLinesFill, BsJournalCheck, BsUiRadiosGrid, BsBookmarkStar, BsChatDots, BsYelp, BsPatchPlus, BsBoxArrowInRight, BsPersonPlus, BsEnvelopeCheck, BsInfoCircle, BsX, BsBoxArrowRight } from "react-icons/bs";
 import { FiX } from 'react-icons/fi';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAuth } from '@/hooks/useAuth';
+import NotificationBell from '@/components/notifications/NotificationBell';
 
 export default function NavbarSimple() {
     const [scroll,setScroll] = useState(false);
     const [current , setCurrent] = useState('');
     const [windowWidth, setWindowWidth] = useState(0);
     const [toggle, setIsToggle] = useState(false);
-
-    const location = usePathname(); 
-
-    const router = usePathname();
+    const { currentUser, userData, loading: authLoading, signOut } = useAuth();
+    const router = useRouter();
+    const location = usePathname();
+    
+    const isAuthenticated = !!currentUser;
+    const isContractor = userData?.userType === 'contractor';
+    const isDashboardPage = current?.startsWith('/dashboard');
     
     useEffect(()=>{
         if (typeof window === "undefined") return;
-        window.scrollTo(0,0)
         setCurrent(location)
 
         const handlerScroll=()=>{
@@ -42,7 +46,7 @@ export default function NavbarSimple() {
             window.removeEventListener('scroll',handlerScroll)
             window.removeEventListener('resize', handleResize);
           };
-    },[windowWidth])
+    },[location])
 
   return (
     <>
@@ -50,13 +54,24 @@ export default function NavbarSimple() {
             <div className="container-fluid">
                 <nav id="navigation" className={windowWidth > 991 ? "navigation navigation-landscape" : " navigation navigation-portrait "}>
                     <div className="nav-header">
-                        <Link className="nav-brand" href="/"><Image src='/img/logo.svg' width={0} height={0} sizes='100vw' style={{width:'166px', height:'auto'}} className="logo" alt=""/></Link>
+                        <Link className="nav-brand" href="/"><Image src='/img/logo.svg' width={166} height={50} priority className="logo" alt="Logo" style={{width:'166px', height:'auto'}}/></Link>
                         <div className="nav-toggle" onClick={()=>setIsToggle(!toggle)}></div>
                         <div className="mobile_nav">
                             <ul>
-                                <li>
-                                    <Link href="/login" className="d-flex align-items-center"><BsPersonCircle className="me-1"/></Link>
-                                </li>
+                                {isAuthenticated ? (
+                                    <>
+                                        <li>
+                                            <Link href="/dashboard-user" className="d-flex align-items-center"><BsPersonCircle className="me-1"/></Link>
+                                        </li>
+                                        <li>
+                                            <NotificationBell />
+                                        </li>
+                                    </>
+                                ) : (
+                                    <li>
+                                        <Link href="/login" className="d-flex align-items-center"><BsPersonCircle className="me-1"/></Link>
+                                    </li>
+                                )}
                                 <li>
                                     <Link href="#searchSlider" className="d-flex align-items-center" data-bs-toggle="offcanvas" role="button" aria-controls="searchSlider"><BsSearch className="me-1"/></Link>
                                 </li>
@@ -65,48 +80,112 @@ export default function NavbarSimple() {
                     </div>
                     <div className={`nav-menus-wrapper  ${toggle ? 'nav-menus-wrapper-open' : ''}`} style={{transitionProperty:toggle ? 'none' : 'left'}}>
                         <div className='mobLogos'>
-                            <Image src='/img/logo.svg' width={0} height={0} sizes='100vw' style={{width:'140px', height:'auto'}} className='img-fluid lightLogo' alt='Logo'/>
+                            <Image src='/img/logo.svg' width={140} height={42} priority className='img-fluid lightLogo' alt='Logo' style={{width:'140px', height:'auto'}}/>
                         </div>
                         <span className='nav-menus-wrapper-close-button'  onClick={()=>setIsToggle(!toggle)}>✕</span>
-                        <ul className="nav-menu">
+                        <ul className="nav-menu" style={{justifyContent: 'center', width: '100%'}}>
                             <li className={`${current === '/' ? 'active' : ''}`}><Link href="/">Home</Link></li>
                             
-                            <li className={`${current === '/list-layout-01' ? 'active' : ''}`}><Link href="/list-layout-01">Browse Contractors</Link></li>
+                            {/* Browse Contractors - Show on all pages except dashboard */}
+                            {!isDashboardPage && (
+                                <li className={`${['/list-layout-01', '/grid-layout-01', '/half-map-01'].includes(current) ? 'active' : ''}`}>
+                                    <Link href="/list-layout-01">Browse Contractors</Link>
+                                </li>
+                            )}
 
-                            <li className={`${['/dashboard-user','/dashboard-my-profile','/dashboard-my-listings','/dashboard-bookmarks','/dashboard-messages','/dashboard-reviews'].includes(current)? 'active' : ''}`}><Link href="#">My Account<span className="submenu-indicator"><span className="submenu-indicator-chevron"></span></span></Link>
-                                <ul className="nav-dropdown nav-submenu">
-                                    <li className={`${current === '/dashboard-user' ? 'active' : ''}`}><Link href="/dashboard-user" className='d-flex'><BsSpeedometer className="me-1 align-self-center"/>Dashboard</Link></li>
-                                    <li className={`${current === '/dashboard-my-profile' ? 'active' : ''}`}><Link href="/dashboard-my-profile" className='d-flex'><BsPersonLinesFill className="me-1 align-self-center"/>My Profile</Link></li>
-                                    <li className={`${current === '/dashboard-my-listings' ? 'active' : ''}`}><Link href="/dashboard-my-listings" className='d-flex'><BsUiRadiosGrid className="me-1 align-self-center"/>My Listings</Link></li>
-                                    <li className={`${current === '/dashboard-bookmarks' ? 'active' : ''}`}><Link href="/dashboard-bookmarks" className='d-flex'><BsBookmarkStar className="me-1 align-self-center"/>Bookmarks</Link></li>
-                                    <li className={`${current === '/dashboard-messages' ? 'active' : ''}`}><Link href="/dashboard-messages" className='d-flex'><BsChatDots className="me-1 align-self-center"/>Messages</Link></li>
-                                    <li className={`${current === '/dashboard-reviews' ? 'active' : ''}`}><Link href="/dashboard-reviews" className='d-flex'><BsYelp className="me-1 align-self-center"/>Reviews</Link></li>
-                                </ul>
-                            </li>
+                            {/* Categories */}
+                            {!isDashboardPage && (
+                                <li className={`${current === '/categories' ? 'active' : ''}`}>
+                                    <Link href="/categories">Categories</Link>
+                                </li>
+                            )}
 
-                            <li className={`${['/about-us','/contact-us','/help-center','/faq'].includes(current)? 'active' : ''}`}><Link href="#">Pages<span className="submenu-indicator"><span className="submenu-indicator-chevron"></span></span></Link>
-                                <ul className="nav-dropdown nav-submenu">
-                                    <li><Link href="#" className='d-flex'><BsPersonCircle className="me-1 align-self-center"/>Account<span className="submenu-indicator"><span className="submenu-indicator-chevron"></span></span></Link>
-                                        <ul className="nav-dropdown nav-submenu">
-                                            <li><Link href="/login" className='d-flex'><BsBoxArrowInRight className="me-1 align-self-center"/>Login</Link></li>
-                                            <li><Link href="/register" className='d-flex'><BsPersonPlus className="me-1 align-self-center"/>Sign Up</Link></li>
-                                        </ul>
-                                    </li>
-                                    <li className={`${current === '/about-us' ? 'active' : ''}`}><Link href="/about-us" className='d-flex'><BsInfoCircle className="me-1 align-self-center"/>About Us</Link></li>                                
-                                    <li className={`${current === '/contact-us' ? 'active' : ''}`}><Link href="/contact-us" className='d-flex'><BsEnvelopeCheck className="me-1 align-self-center"/>Contact Us</Link></li>
-                                    <li className={`${current === '/help-center' ? 'active' : ''}`}><Link href="/help-center" className='d-flex'><BsInfoCircle className="me-1 align-self-center"/>Help Center</Link></li>
-                                    <li className={`${current === '/faq' ? 'active' : ''}`}><Link href="/faq" className='d-flex'><BsInfoCircle className="me-1 align-self-center"/>FAQ's</Link></li>
-                                </ul>
-                            </li>
+                            {/* Blog */}
+                            {!isDashboardPage && (
+                                <li className={`${['/blog', '/blog-detail'].some(path => current.startsWith(path)) ? 'active' : ''}`}>
+                                    <Link href="/blog">Blog</Link>
+                                </li>
+                            )}
+
+                            {/* About Us */}
+                            {!isDashboardPage && (
+                                <li className={`${current === '/about-us' ? 'active' : ''}`}>
+                                    <Link href="/about-us">About Us</Link>
+                                </li>
+                            )}
+
                         </ul>
 
                         <ul className="nav-menu nav-menu-social align-to-right">
-                            <li>
-                                <Link href="/login" className="d-flex align-items-center"><BsPersonCircle className="fs-6 me-1"/><span className="navCl">Login</span></Link>
-                            </li>
-                            <li className="list-buttons">
-                                <Link href="/dashboard-add-listing"><BsGeoAlt className="fs-6 me-1"/>Add Listing</Link>
-                            </li>
+                            {/* My Account - Only show when authenticated */}
+                            {isAuthenticated && (
+                                <li className={`${['/dashboard-user','/dashboard-my-profile','/dashboard-my-listings','/dashboard-bookmarks','/dashboard-messages','/dashboard-reviews','/dashboard-my-bookings','/dashboard-wallet'].includes(current)? 'active' : ''}`}>
+                                    <Link href="#">My Account<span className="submenu-indicator"><span className="submenu-indicator-chevron"></span></span></Link>
+                                    <ul className="nav-dropdown nav-submenu">
+                                        <li className={`${current === '/dashboard-user' ? 'active' : ''}`}><Link href="/dashboard-user" className='d-flex'><BsSpeedometer className="me-1 align-self-center"/>Dashboard</Link></li>
+                                        <li className={`${current === '/dashboard-my-profile' ? 'active' : ''}`}><Link href="/dashboard-my-profile" className='d-flex'><BsPersonLinesFill className="me-1 align-self-center"/>My Profile</Link></li>
+                                        {isContractor && (
+                                            <li className={`${current === '/dashboard-my-listings' ? 'active' : ''}`}><Link href="/dashboard-my-listings" className='d-flex'><BsUiRadiosGrid className="me-1 align-self-center"/>My Listings</Link></li>
+                                        )}
+                                        <li className={`${current === '/dashboard-bookmarks' ? 'active' : ''}`}><Link href="/dashboard-bookmarks" className='d-flex'><BsBookmarkStar className="me-1 align-self-center"/>Bookmarks</Link></li>
+                                        <li className={`${current === '/dashboard-messages' ? 'active' : ''}`}><Link href="/dashboard-messages" className='d-flex'><BsChatDots className="me-1 align-self-center"/>Messages</Link></li>
+                                        {isContractor && (
+                                            <>
+                                                <li className={`${current === '/dashboard-reviews' ? 'active' : ''}`}><Link href="/dashboard-reviews" className='d-flex'><BsYelp className="me-1 align-self-center"/>Reviews</Link></li>
+                                                <li className={`${current === '/dashboard-wallet' ? 'active' : ''}`}><Link href="/dashboard-wallet" className='d-flex'><BsJournalCheck className="me-1 align-self-center"/>Wallet</Link></li>
+                                            </>
+                                        )}
+                                        {!isContractor && (
+                                            <li className={`${current === '/dashboard-my-bookings' ? 'active' : ''}`}><Link href="/dashboard-my-bookings" className='d-flex'><BsJournalCheck className="me-1 align-self-center"/>My Bookings</Link></li>
+                                        )}
+                                    </ul>
+                                </li>
+                            )}
+                            {isAuthenticated ? (
+                                <>
+                                    <li>
+                                        <NotificationBell />
+                                    </li>
+                                    <li>
+                                        <div className="dropdown">
+                                            <button className="btn btn-link d-flex align-items-center text-decoration-none" type="button" data-bs-toggle="dropdown">
+                                                <BsPersonCircle className="fs-6 me-1"/>
+                                                <span className="navCl">{userData?.displayName || 'Account'}</span>
+                                            </button>
+                                            <ul className="dropdown-menu dropdown-menu-end">
+                                                <li><Link href="/dashboard-user" className="dropdown-item">Dashboard</Link></li>
+                                                <li><Link href="/dashboard-my-profile" className="dropdown-item">My Profile</Link></li>
+                                                <li><hr className="dropdown-divider"/></li>
+                                                <li>
+                                                    <button 
+                                                        className="dropdown-item d-flex align-items-center" 
+                                                        onClick={async () => {
+                                                            await signOut();
+                                                            router.push('/');
+                                                        }}
+                                                    >
+                                                        <BsBoxArrowRight className="me-2"/>Logout
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                    {isContractor && (
+                                        <li className="list-buttons">
+                                            <Link href="/dashboard-add-listing"><BsGeoAlt className="fs-6 me-1"/>Add Listing</Link>
+                                        </li>
+                                    )}
+                                </>
+                            ) : (
+                                <>
+                                    <li>
+                                        <Link href="/login" className="d-flex align-items-center"><BsPersonCircle className="fs-6 me-1"/><span className="navCl">Login</span></Link>
+                                    </li>
+                                    <li className="list-buttons">
+                                        <Link href="/register"><BsPersonPlus className="fs-6 me-1"/>Sign Up</Link>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </div>
                 </nav>

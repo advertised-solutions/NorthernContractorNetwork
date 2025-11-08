@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import ListSidebarOne from '../components/list-sidebar-one'
 import FooterTop from '../components/footer-top'
 import Footer from '../components/footer/footer'
@@ -36,7 +36,7 @@ interface ListData{
 export default function GridLayoutOne() {
   return (
     <>
-        <NavbarDark/>
+        <NavbarSimple/>
 
         <div className="image-cover hero-banner bg-primary" style={{backgroundImage:`url(/img/banner-6.jpg)`}} data-overlay="5">
             <div className="container">

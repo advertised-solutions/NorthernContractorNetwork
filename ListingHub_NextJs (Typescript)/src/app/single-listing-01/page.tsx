@@ -6,7 +6,7 @@ import { BiBriefcase } from 'react-icons/bi'
 import { BsSendCheck, BsStarFill, BsStarHalf, BsX } from 'react-icons/bs'
 import { FiArrowRight } from 'react-icons/fi'
 
-import NavLightTwo from '../components/navbar/nav-light-two'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import Descriptions from '../components/list-detail/descriptions'
 import Pricings from '../components/list-detail/pricings'
 import FeatureNav from '../components/navbar/feature-nav'
@@ -26,7 +26,7 @@ import Image from 'next/image'
 export default function SingleListingOne() {
   return (
     <>
-        <NavLightTwo/>
+        <NavbarSimple/>
 
         <section className="bg-cover position-relative ht-500 py-0" style={{backgroundImage:`url('/img/single-1.jpg')`}} data-overlay="4">
             <div className="container h-100">

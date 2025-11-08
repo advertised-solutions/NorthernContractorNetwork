@@ -3,7 +3,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
-import NavbarDark from '../../components/navbar/navbar-dark'
+import NavbarSimple from '../../components/navbar/navbar-simple'
 import BlogSidebar from '../../components/blog-sidebar'
 import FooterTop from '../../components/footer-top'
 import Footer from '../../components/footer/footer'
@@ -24,7 +24,7 @@ export default function BlogDetail() {
 
   return (  
     <div className='bg-light'>
-        <NavbarDark/>
+        <NavbarSimple/>
         <section>
             <div className="container">
                 <div className="row justify-content-start align-items-center">

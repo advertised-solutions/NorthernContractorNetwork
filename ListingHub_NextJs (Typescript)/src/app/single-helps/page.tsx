@@ -7,7 +7,7 @@ import { MdArrowForwardIos } from 'react-icons/md'
 
 import { articles } from '../data/data'
 
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import FooterTop from '../components/footer-top'
 import Footer from '../components/footer/footer'
 import BackToTop from '../components/back-to-top'
@@ -20,7 +20,7 @@ interface Articles{
 export default function SingleHelps() {
   return (
     <>
-    <NavbarDark/>
+        <NavbarSimple/>
     <section className="bg-cover position-relative" style={{backgroundColor:`#f0f4f8`, backgroundImage:`url('/img/title-bg.png')`}}>
         <div className="container">
             <div className="row align-items-center justify-content-center">

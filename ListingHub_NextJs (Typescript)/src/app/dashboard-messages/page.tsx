@@ -64,7 +64,7 @@ export default function DashboardMessage() {
                                                                             <div className="flxLast"><span className="text-md text-muted">{item.time}</span></div>
                                                                         </div>
                                                                         <div className="messagesBody">
-                                                                            <p className="m-0">Hello, I want to disscuss with you regarding my listing <strong>Apolo Hotel</strong> to manage and upgrade it with...</p>
+                                                                            <p className="m-0">Hello, I want to discuss with you regarding my listing <strong>Premier Plumbing Solutions</strong> to manage and upgrade it with...</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>

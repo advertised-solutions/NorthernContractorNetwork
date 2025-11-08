@@ -30,13 +30,12 @@ export default function Footer() {
                     
                     <div className="col-6 col-md-4 offset-md-3 col-lg-3  offset-lg-0 col-xl-2">
                         <div className="footer-widget mb-5 mb-md-5 mb-lg-0">
-                            <h4 className="widget-title text-pri">Community</h4>
+                            <h4 className="widget-title text-pri">Company</h4>
                             <ul className="footer-menu">
-                                {footerLink1.map((item,index)=>{
-                                    return(
-                                        <li key={index}><Link href="#">{item}</Link></li>
-                                    )
-                                })}
+                                <li><Link href="/about-us">About Us</Link></li>
+                                <li><Link href="/contact-us">Contact Us</Link></li>
+                                <li><Link href="/help-center">Help Center</Link></li>
+                                <li><Link href="/faq">FAQ's</Link></li>
                             </ul>
                         </div>
                     </div>

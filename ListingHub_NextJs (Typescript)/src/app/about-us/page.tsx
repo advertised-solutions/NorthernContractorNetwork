@@ -9,7 +9,7 @@ import { counterData, workData } from '../data/data'
 import { MdArrowForwardIos } from 'react-icons/md'
 import { BsCaretRight, BsPlayCircleFill } from 'react-icons/bs'
 
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import ClientOne from '../components/client-one'
 import TeamOne from '../components/team-one'
 import FooterTop from '../components/footer-top'
@@ -33,7 +33,7 @@ interface WorkData{
 export default function AboutUs() {
   return (
     <>
-        <NavbarDark/>
+        <NavbarSimple/>
 
         <section className="bg-cover position-relative" style={{backgroundImage:`url('/img/title-banner.jpg')`}} data-overlay="6">
             <div className="container">
@@ -60,8 +60,8 @@ export default function AboutUs() {
                     <div className="row justify-content-center align-items-center">
                         <div className="col-xl-10 col-lg-11 col-md-12 col-sm-12">
                             <div className="secHeading-wrap text-center">
-                                <h3 className="sectionHeading">How We Start <span className="text-primary">Work</span></h3>
-                                <p>Explore our work process step by step and our mission</p>
+                                <h3 className="sectionHeading">How We Connect You With <span className="text-primary">Contractors</span></h3>
+                                <p>Explore our process for finding and connecting you with qualified contractors</p>
                             </div>
                         </div>
                     </div>
@@ -75,10 +75,10 @@ export default function AboutUs() {
                             <div className="missioncaps">
                                 <div className="d-block mb-4">
                                     <div className="d-flex align-items-start mb-2"><span className="badge badge-xs badge-success rounded-pill">About Mission</span></div>
-                                    <h2>Explore Our Aim & Mission</h2>
+                                    <h2>Our Mission & Vision</h2>
                                 </div>
-                                <p>Euismod ultricies sollicitudin. Curabitur sed dapibus nulla. Nulla eget iaculis lectus. Mauris ac maximus neque. Nam in mauris quis libero sodales eleifend. Morbi varius, nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Curabitur convallis fringilla diam sed aliquam. sit amet rutrum elementum, est elit finibus tellus, ut tristique elit risus at metus. Sed tempor iaculis massa faucibus feugiat.</p>
-                                <p>Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa.</p>
+                                <p>Our mission is to connect homeowners and businesses with trusted, licensed, and insured contractors across all trades. We believe that finding the right contractor should be simple, transparent, and stress-free. Our platform provides a comprehensive directory where quality contractors can showcase their services and customers can find exactly what they need.</p>
+                                <p>We're committed to maintaining the highest standards by verifying all contractor credentials, facilitating transparent communication, and ensuring fair pricing. Our vision is to be the most trusted contractor directory platform, helping both contractors grow their businesses and customers complete their projects with confidence.</p>
                                 <div className="d-flex align-items-start justify-content-md-start justify-content-center mt-4">
                                     <Link href="#" className="btn btn-light-primary rounded-pill px-5">Meet Our Team</Link>
                                 </div>
@@ -109,14 +109,14 @@ export default function AboutUs() {
                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                             <div className="position-relative text-center py-5">
                                 <div className="promoTitle d-flex align-items-center justify-content-center">
-                                    <span className="badge badge-xs badge-transparent rounded-pill">Get Help with Promo Videos</span>
+                                    <span className="badge badge-xs badge-transparent rounded-pill">Find Your Perfect Contractor</span>
                                 </div>
                                 <div className="promoHeading mb-5 mt-4">
-                                    <h2 className="text-light">Embark on your thrilling adventure with us.</h2>
-                                    <h3 className="text-light">Our agency will guide you through the captivating realm of digital innovation.</h3>
+                                    <h2 className="text-light">Find Trusted Contractors for Your Next Project.</h2>
+                                    <h3 className="text-light">Connect with licensed professionals who deliver quality workmanship and exceptional service.</h3>
                                 </div>
                                 <div className="promoButtons">
-                                    <button type="button" className="btn btn-whites fw-medium rounded-pill px-4"><BsPlayCircleFill className="me-2"/>Watch Promo Video</button>
+                                    <Link href="/list-layout-01" className="btn btn-whites fw-medium rounded-pill px-4"><BsPlayCircleFill className="me-2"/>Browse Contractors</Link>
                                 </div>
                                 
                             </div>
@@ -131,8 +131,8 @@ export default function AboutUs() {
                 <div className="row justify-content-center align-items-center">
                     <div className="col-xl-10 col-lg-11 col-md-12 col-sm-12">
                         <div className="secHeading-wrap text-center">
-                            <h3 className="sectionHeading">Our Working <span className="text-primary">Process</span></h3>
-                            <p>Explore our work process step by step and our mission</p>
+                                <h3 className="sectionHeading">Our Contractor Connection <span className="text-primary">Process</span></h3>
+                            <p>Learn how we connect you with qualified contractors in three simple steps</p>
                         </div>
                     </div>
                 </div>
@@ -149,8 +149,8 @@ export default function AboutUs() {
                                             </div>
                                         </div>
                                         <div className="processCaps">
-                                            <h4 className="fw-medium">Explore Best Place</h4>
-                                            <p className="m-0">Reviewers tend to be distracted by presented with the actual comprehensible content often happens that private corporate clients corder.</p>
+                                            <h4 className="fw-medium">{item.title}</h4>
+                                            <p className="m-0">{item.desc}</p>
                                         </div>
                                     </div>
                                 </div>

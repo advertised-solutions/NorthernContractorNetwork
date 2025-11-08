@@ -5,7 +5,7 @@ import { articles, helpData } from '../data/data'
 
 import { BsBoxArrowInRight } from 'react-icons/bs'
 
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import FooterTop from '../components/footer-top'
 import Footer from '../components/footer/footer'
 import BackToTop from '../components/back-to-top'
@@ -18,7 +18,7 @@ interface Articles{
 export default function HelpCenter() {
   return (
     <>
-        <NavbarDark/>
+        <NavbarSimple/>
 
         <section className="bg-cover position-relative" style={{backgroundImage:`url('/img/title-bg.png')`, backgroundColor:'#f0f4f8'}}>
             <div className="container">

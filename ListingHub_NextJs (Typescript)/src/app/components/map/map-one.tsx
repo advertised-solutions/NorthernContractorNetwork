@@ -23,7 +23,7 @@ export default function MapOne() {
 
   return (
         <div className="ht-500" id="map-main">
-            <LoadScript googleMapsApiKey="">
+            <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
                 <GoogleMap
                     mapContainerStyle={{ height: '600px', width: '100%' }}
                     center={defaultProps.center}

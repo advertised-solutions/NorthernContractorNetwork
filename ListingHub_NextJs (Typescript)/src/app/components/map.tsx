@@ -23,7 +23,7 @@ export default function Map() {
   return (
     <div className="home-map-container fw-map">
         <div id="map-main">
-            <LoadScript googleMapsApiKey="">
+            <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
                 <GoogleMap
                     mapContainerStyle={{ height: '100vh', width: '100%' }}
                     center={defaultProps.center}

@@ -1,15 +1,18 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import NavbarSimple from "./components/navbar/navbar-simple";
 import FormOne from "./components/form/form-one";
 import { BsMouse } from "react-icons/bs";
-import BrandImage from "./components/brand-image";
-import CategoryOne from "./components/categories/category-one";
-import PopularListingOne from "./components/popular-listing-one";
-import ClientOne from "./components/client-one";
-import BlogOne from "./components/blog-one";
-import FooterTop from "./components/footer-top";
-import Footer from "./components/footer/footer";
-import BackToTop from "./components/back-to-top";
+import { CategoryOne, PopularListingOne, ClientOne } from "./components/client-swiper-sections";
+
+// Lazy load components below the hero section for faster initial load
+const BrandImage = dynamic(() => import("./components/brand-image"));
+const BlogOne = dynamic(() => import("./components/blog-one"), {
+  loading: () => <div className="text-center py-5"><div className="spinner-border" role="status"></div></div>,
+});
+const FooterTop = dynamic(() => import("./components/footer-top"));
+const Footer = dynamic(() => import("./components/footer/footer"));
+const BackToTop = dynamic(() => import("./components/back-to-top"));
 
 export default function Home() {
   return (

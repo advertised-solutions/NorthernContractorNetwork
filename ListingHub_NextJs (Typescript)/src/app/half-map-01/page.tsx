@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 
-import NavbarFull from '../components/navbar/navbar-full'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import Map from '../components/map'
 import BackToTop from '../components/back-to-top'
 import FilterTwo from '../components/footer/filter-two'
@@ -35,7 +35,7 @@ export default function halfMapOne() {
     }
   return (
     <>
-        <NavbarFull/>
+        <NavbarSimple/>
 
         <div className="map-banner-wrap half-map">
             <div className="map-left-box">

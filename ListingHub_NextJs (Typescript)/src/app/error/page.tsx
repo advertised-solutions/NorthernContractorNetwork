@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { MdArrowForwardIos } from 'react-icons/md'
 
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import FooterTop from '../components/footer-top'
 import Footer from '../components/footer/footer'
 import BackToTop from '../components/back-to-top'
@@ -11,7 +11,7 @@ import BackToTop from '../components/back-to-top'
 export default function Error() {
   return (
     <>
-        <NavbarDark/>
+        <NavbarSimple/>
         
         <section className="bg-light">
             <div className="container">

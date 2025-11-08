@@ -24,6 +24,12 @@
 .DS_Store
 *.pem
 
+# Firebase service account key (NEVER commit this!)
+serviceAccountKey.json
+*serviceAccount*.json
+*-firebase-adminsdk-*.json
+northern-contractor-netw-*.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*

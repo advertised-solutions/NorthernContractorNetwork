@@ -5,7 +5,7 @@ import { MdArrowForwardIos } from 'react-icons/md'
 
 import { faqData1, faqData2, faqData3 } from '../data/data'
 
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import FooterTop from '../components/footer-top'
 import Footer from '../components/footer/footer'
 import BackToTop from '../components/back-to-top'
@@ -19,7 +19,7 @@ interface FaqData{
 export default function Faq() {
   return (
     <>
-        <NavbarDark/>  
+        <NavbarSimple/>  
 
         <section className="bg-light">
             <div className="container">

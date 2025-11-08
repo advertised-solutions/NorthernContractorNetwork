@@ -8,7 +8,7 @@ import { MdArrowForwardIos } from 'react-icons/md'
 import { BsCalendarCheck, BsEyeFill } from 'react-icons/bs'
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa6'
 
-import NavbarDark from '../components/navbar/navbar-dark'
+import NavbarSimple from '../components/navbar/navbar-simple'
 import FooterTop from '../components/footer-top'
 import Footer from '../components/footer/footer'
 import BackToTop from '../components/back-to-top'
@@ -25,7 +25,7 @@ interface BlogData{
 export default function Blog() {
   return (
     <>
-        <NavbarDark/>
+        <NavbarSimple/>
 
         <section className="bg-cover position-relative" style={{backgroundImage:`url('/img/title-banner.jpg')`}} data-overlay="6">
             <div className="container">
